@@ -13,7 +13,6 @@ export class AppComponent {
   day: string = '';
   month: string = '';
   year: string = '';
-  arTest: string = '111';
   oneNumber: any;
   secondNumber: number;
   thirdNumber: number;
@@ -31,9 +30,6 @@ export class AppComponent {
 
 
   addTask() {
-    console.log("Day ", this.day)
-    console.log("Month ", this.month)
-    console.log("Year", this.year)
     this.oneNumber = this.digestPower(this.day, this.month, this.year)
     console.log("Число силы ", this.oneNumber)
     this.secondNumber = this.secondDigest(this.day, this.month, this.year)
