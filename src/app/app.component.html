@@ -20,28 +20,54 @@
   </div>
   <div>
     <table class="table table-bordered">
+      <thead>
+      <th ></th>
+      <th ></th>
+      <th ></th>
+      <th >Темперамент: {{three.length + five.length +seven.length}}</th>
+
+      </thead>
       <tbody>
       <tr>
-        <td>1</td>
-        <td>4</td>
-        <td>7</td>
+        <td>
+          {{one}}
+        </td>
+        <td>{{four}}</td>
+        <td>{{seven}}</td>
+        <th>Цель: {{one.length + four.length + seven.length }}</th>
       </tr>
       <tr>
-        <td>2</td>
-        <td>5</td>
-        <td>8</td>
+        <td>{{two}}</td>
+        <td>{{five}}</td>
+        <td>{{eight}}</td>
+        <th>Семья: {{two.length + five.length + eight.length}}</th>
       </tr>
       <tr>
-        <td>3</td>
-        <td>6</td>
-        <td>9</td>
+        <td>{{three}}</td>
+        <td>{{six}}</td>
+        <td>{{nine}}</td>
+        <th>Привычки: {{three.length + six.length + nine.length}}</th>
+      </tr>
+      <tr>
+        <td><strong>Быт: {{four.length + five.length + six.length}}</strong></td>
       </tr>
       </tbody>
     </table>
   </div>
   <div class="myclass">
-    <p>Число силы <strong>{{oneNumber}}</strong></p>
+    <p>Число судьбы <strong>{{oneNumber}}</strong></p>
   </div>
+  <div class="myclass">
+    <p>Второе число <strong>{{secondNumber}}</strong></p>
+  </div>
+  <div class="myclass">
+    <p>Третье число <strong>{{thirdNumber}}</strong></p>
+  </div>
+  <div class="myclass">
+    <p>Четвертое число <strong>{{fourthNumber}}</strong></p>
+  </div>
+
+
 </div>
 
 
