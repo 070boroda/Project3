@@ -1,4 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MyValidators} from "./my.validators";
 
 @Component({
   selector: 'app-root',
@@ -6,7 +8,7 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'NumerologiC';
   day: string = '';
   month: string = '';
@@ -25,17 +27,28 @@ export class AppComponent {
   seven: string = '';
   eight: string = '';
   nine: string = '';
+  form: FormGroup;
 
+  ngOnInit(): void {
+    this.form = new FormGroup({
+      day: new FormControl('', [Validators.required,
+        MyValidators.restrictDay,MyValidators.lessDay]),
+      month: new FormControl('',[Validators.required,
+      MyValidators.lessMonth]),
+      year: new FormControl('',[Validators.required,
+      Validators.minLength(4)])
+    })
+  }
 
   addTask() {
+    this.day = this.form.get('day').value;
+    this.month= this.form.get('month').value;
+    this.year = this.form.get('year').value;
+
     this.oneNumber = this.digestPower(this.day, this.month, this.year);
-    console.log("Число силы ", this.oneNumber)
     this.secondNumber = this.secondDigest(this.day, this.month, this.year);
-    console.log("Второе число ", this.secondNumber);
     this.thirdNumber = this.thirdDigest(this.day, this.month, this.year);
-    console.log("Третье число ", this.thirdNumber);
     this.fourthNumber = this.fourthDigest(this.day, this.month, this.year);
-    console.log("Четвертое число ", this.fourthNumber);
     this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
       this.secondNumber, this.thirdNumber, this.fourthNumber);
     this.one = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
@@ -59,17 +72,17 @@ export class AppComponent {
   }
 
   private digestPower(a: string, b: string, c: string): number {
-    let sum = 0
+    let sum = 0;
     sum = this.sumBirthDayAndFirstDigest(a, b, c)
 
     while (sum > 11) {
-      console.log("Start do While")
-      let arTemp: string [] = []
-      arTemp = sum.toString().split('')
-      console.log("Массив из вайла ", arTemp)
-      sum = 0
+      console.log("Start do While");
+      let arTemp: string [] = [];
+      arTemp = sum.toString().split('');
+      console.log("Массив из вайла ", arTemp);
+      sum = 0;
       for (let i of arTemp) {
-        sum += +i
+        sum += +i;
         console.log("From while sum = ", sum)
       }
       arTemp = []
@@ -84,9 +97,9 @@ export class AppComponent {
   }
 
   private sumBirthDayAndFirstDigest(a: string, b: string, c: string): number {
-    let temp = a + b + c
-    let arTemp: any[] = temp.split('')
-    let sum = 0
+    let temp = a + b + c;
+    let arTemp: any[] = temp.split('');
+    let sum = 0;
     for (let i of arTemp) {
       sum += +i
     }

@@ -1,24 +1,51 @@
 <div class="container">
   <h2 class="myclass">{{title}}</h2>
 
-  <div class="input-group input-group-sm mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroup-day">Day</span>
-      <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
-             [(ngModel)]='day'>
+  <input type = "text" class="lenghtinput" placeholder="Name">
+
+  <form [formGroup]="form" (ngSubmit)="addTask()">
+    <div align="centre">
+      <div class="myclass2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-day">Day</span>
+          <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
+                 formControlName="day"
+                 maxlength="2"
+                 size="10">
+        </div>
+        <div *ngIf="form.get('day').invalid && form.get('day').touched">
+        <small *ngIf="form.get('day').errors.required">Поле не может быть пустым </small>
+        <small *ngIf="form.get('day').errors.restrictDay">Числа начинающиеся на нуль не допустимы</small>
+          <small *ngIf="form.get('day').errors.lessDay">В месеце не больше 31 дней</small>
+        </div>
+      </div>
+      <div class="myclass2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-month">Month</span>
+          <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
+                 formControlName="month" maxlength="2">
+        </div>
+        <div *ngIf="form.get('month').invalid && form.get('month').touched">
+          <small *ngIf="form.get('month').errors.required">Поле не может быть пустым </small>
+          <small *ngIf="form.get('month').errors.lessMonth">В году 12 месяцев</small>
+        </div>
+      </div>
+
+      <div class="myclass2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-year">Year</span>
+          <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
+                 formControlName="year" maxlength="4">
+        </div>
+        <div *ngIf="form.get('year').invalid && form.get('year').touched">
+          <small *ngIf="form.get('year').errors.required">Поле не может быть пустым </small>
+          <small *ngIf="form.get('year').errors.minLength">Год должен быть записан в формате ГГГГ</small>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-dark" [disabled]="form.invalid">Пуск</button>
     </div>
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroup-month">Month</span>
-      <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
-             [(ngModel)]='month'>
-    </div>
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroup-year">Year</span>
-      <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
-             [(ngModel)]='year'>
-    </div>
-    <button type="button" class="btn btn-dark" (click)="addTask()">Пуск</button>
-  </div>
+  </form>
 
   <div>
     <table class="table table-bordered">
@@ -57,7 +84,7 @@
     </table>
   </div>
   <div align="center">
-    <textarea cols="80" rows="20">
+    <textarea cols="120" rows="37">
     </textarea>
   </div>
 </div>

@@ -1,11 +1,18 @@
 .myclass {
-  text-align: center
+  text-align: center;
 }
 
-.input-group-prepend{
-  width: 150px;
-  margin-left: auto;
-  margin-right: auto;
+.myclass2{
+  padding: 10px;
+}
+.lenghtinput{
+  width: 200px;
+  margin-left:475px;
+  align-content: center;
+
+}
+small{
+  color: red;
 }
 
 .table{
@@ -24,5 +31,18 @@ TH {
 
 TD {
   text-align: center; /* Выравнивание по центру */
+}
+
+span{
+  width: 70px;
+}
+input{
+  width: 65px;
+  &.ng-invalid.ng-touched{
+    border: 1px solid red;
+  }
+  &.ng-valid{
+    border: 1px solid green;
+  }
 }
 
