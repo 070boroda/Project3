@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {strictEqual} from "assert";
-import {stringify} from "querystring";
 
 @Component({
   selector: 'app-root',
@@ -30,34 +28,34 @@ export class AppComponent {
 
 
   addTask() {
-    this.oneNumber = this.digestPower(this.day, this.month, this.year)
+    this.oneNumber = this.digestPower(this.day, this.month, this.year);
     console.log("Число силы ", this.oneNumber)
-    this.secondNumber = this.secondDigest(this.day, this.month, this.year)
-    console.log("Второе число ", this.secondNumber)
-    this.thirdNumber = this.thirdDigest(this.day, this.month, this.year)
-    console.log("Третье число ", this.thirdNumber)
-    this.fourthNumber = this.fourthDigest(this.day, this.month, this.year)
-    console.log("Четвертое число ", this.fourthNumber)
+    this.secondNumber = this.secondDigest(this.day, this.month, this.year);
+    console.log("Второе число ", this.secondNumber);
+    this.thirdNumber = this.thirdDigest(this.day, this.month, this.year);
+    console.log("Третье число ", this.thirdNumber);
+    this.fourthNumber = this.fourthDigest(this.day, this.month, this.year);
+    console.log("Четвертое число ", this.fourthNumber);
     this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber)
+      this.secondNumber, this.thirdNumber, this.fourthNumber);
     this.one = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber), '1')
+      this.secondNumber, this.thirdNumber, this.fourthNumber), '1');
     this.two = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber), '2')
+      this.secondNumber, this.thirdNumber, this.fourthNumber), '2');
     this.three = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber), '3')
+      this.secondNumber, this.thirdNumber, this.fourthNumber), '3');
     this.four = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber), '4')
+      this.secondNumber, this.thirdNumber, this.fourthNumber), '4');
     this.five = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber), '5')
+      this.secondNumber, this.thirdNumber, this.fourthNumber), '5');
     this.six = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber), '6')
+      this.secondNumber, this.thirdNumber, this.fourthNumber), '6');
     this.seven = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber), '7')
+      this.secondNumber, this.thirdNumber, this.fourthNumber), '7');
     this.eight = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber), '8')
+      this.secondNumber, this.thirdNumber, this.fourthNumber), '8');
     this.nine = this.found(this.sumAllDigest(this.day, this.month, this.year, this.sumBirthDayAndFirstDigest(this.day, this.month, this.year),
-      this.secondNumber, this.thirdNumber, this.fourthNumber), '9')
+      this.secondNumber, this.thirdNumber, this.fourthNumber), '9');
   }
 
   private digestPower(a: string, b: string, c: string): number {

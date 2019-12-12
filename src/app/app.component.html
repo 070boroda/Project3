@@ -1,5 +1,6 @@
 <div class="container">
   <h2 class="myclass">{{title}}</h2>
+
   <div class="input-group input-group-sm mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text" id="inputGroup-day">Day</span>
@@ -18,10 +19,11 @@
     </div>
     <button type="button" class="btn btn-dark" (click)="addTask()">Пуск</button>
   </div>
+
   <div>
     <table class="table table-bordered">
       <thead>
-      <th></th>
+      <th>Число судьбы <strong>{{oneNumber}}</strong></th>
       <th></th>
       <th></th>
       <th>Темперамент: {{three.length + five.length + seven.length}}</th>
@@ -54,16 +56,8 @@
       </tbody>
     </table>
   </div>
-  <div class="myclass">
-    <p>Число судьбы <strong>{{oneNumber}}</strong></p>
-  </div>
-  <div class="myclass">
-    <p>Второе число <strong>{{secondNumber}}</strong></p>
-  </div>
-  <div class="myclass">
-    <p>Третье число <strong>{{thirdNumber}}</strong></p>
-  </div>
-  <div class="myclass">
-    <p>Четвертое число <strong>{{fourthNumber}}</strong></p>
+  <div align="center">
+    <textarea cols="80" rows="20">
+    </textarea>
   </div>
 </div>
