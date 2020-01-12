@@ -9,7 +9,7 @@ import {MyValidators} from "./my.validators";
 })
 
 export class AppComponent implements OnInit{
-  title = 'NumerologiC';
+  title = 'NumerologY';
   day: string = '';
   month: string = '';
   year: string = '';

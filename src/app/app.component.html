@@ -1,13 +1,12 @@
 <div class="container">
   <h2 class="myclass">{{title}}</h2>
 
-  <input type = "text" class="lenghtinput" placeholder="Name">
 
   <form [formGroup]="form" (ngSubmit)="addTask()">
     <div align="centre">
       <div class="myclass2">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-day">Day</span>
+          <span class="input-group-text" id="inputGroup-day">День</span>
           <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
                  formControlName="day"
                  maxlength="2"
@@ -21,7 +20,7 @@
       </div>
       <div class="myclass2">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-month">Month</span>
+          <span class="input-group-text" id="inputGroup-month">Месяц</span>
           <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
                  formControlName="month" maxlength="2">
         </div>
@@ -33,7 +32,7 @@
 
       <div class="myclass2">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-year">Year</span>
+          <span class="input-group-text" id="inputGroup-year">Год</span>
           <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
                  formControlName="year" maxlength="4">
         </div>
@@ -82,9 +81,5 @@
       </tr>
       </tbody>
     </table>
-  </div>
-  <div align="center">
-    <textarea cols="120" rows="37">
-    </textarea>
   </div>
 </div>
