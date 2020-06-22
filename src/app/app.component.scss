@@ -20,19 +20,19 @@ small{
   hight: 500px;
   margin-left: auto;
   margin-right: auto;
-  text-decoration-color: #ffffff;
+  text-decoration-color: #11118b;
 }
 
 TH {
   width: 150px;
   text-align: left; /* Выравнивание по левому краю */
-  background: black; /* Цвет фона */
-  color: white; /* Цвет текста */
+  background: rgba(139, 229, 201, 0.56); /* Цвет фона */
+  color: #11118b; /* Цвет текста */
 }
 
 TD {
   text-align: center; /* Выравнивание по центру */
-  color: #ffffff;
+  color: #11118b;
 }
 
 span{
@@ -55,6 +55,7 @@ input{
     display: block;
     margin: 0 auto;
     border: none;
+    color: darkblue;
   }
 
 
