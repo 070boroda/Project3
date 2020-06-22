@@ -32,17 +32,17 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.form = new FormGroup({
       day: new FormControl('', [Validators.required,
-        MyValidators.restrictDay,MyValidators.lessDay]),
+        MyValidators.restrictDay, MyValidators.lessDay]),
       month: new FormControl('',[Validators.required,
       MyValidators.lessMonth]),
       year: new FormControl('',[Validators.required,
       Validators.minLength(4)])
-    })
+    });
   }
 
   addTask() {
     this.day = this.form.get('day').value;
-    this.month= this.form.get('month').value;
+    this.month = this.form.get('month').value;
     this.year = this.form.get('year').value;
 
     this.oneNumber = this.digestPower(this.day, this.month, this.year);
@@ -75,24 +75,29 @@ export class AppComponent implements OnInit{
     let sum = 0;
     sum = this.sumBirthDayAndFirstDigest(a, b, c)
 
+
+
     while (sum > 11) {
-      console.log("Start do While");
+      console.log('Start do While');
       let arTemp: string [] = [];
       arTemp = sum.toString().split('');
-      console.log("Массив из вайла ", arTemp);
+      console.log('Массив из вайла ', arTemp);
       sum = 0;
       for (let i of arTemp) {
         sum += +i;
-        console.log("From while sum = ", sum)
+        console.log('From while sum = ', sum);
       }
-      arTemp = []
+      arTemp = [];
+    }
+    if (this.secondDigest(a, b, c) === 11) {
+      return 11;
     }
     if (sum === 11) {
-      return sum
+      return 2;
     } else if (sum === 10) {
-      return 1
+      return 1;
     } else {
-      return sum
+      return sum;
     }
   }
 
@@ -101,18 +106,19 @@ export class AppComponent implements OnInit{
     let arTemp: any[] = temp.split('');
     let sum = 0;
     for (let i of arTemp) {
-      sum += +i
+      sum += +i;
     }
-    return sum
+    console.log('Сумма чисел рождения', sum);
+    return sum;
   }
 
   private secondDigest(a: string, b: string, c: string): number {
     let sum: number = 0
 
     for (let i of this.sumBirthDayAndFirstDigest(a, b, c).toString().split('')) {
-      sum += +i
+      sum += +i;
     }
-    return sum
+    return sum;
   }
 
   private thirdDigest(a: string, b: string, c: string): number {
@@ -127,24 +133,24 @@ export class AppComponent implements OnInit{
   private fourthDigest(a: string, b: string, c: string): number {
     let sum: number = 0
     for (let i of this.thirdDigest(a, b, c).toString().split('')) {
-      sum += +i
+      sum += +i;
     }
-    return sum
+    return sum;
   }
 
   private sumAllDigest(a: string, b: string, c: string, first: number,
                        second: number, third: number, fourth: number): string[] {
     this.resultAr = []
-    let temp = a + b + c + first.toString() + second.toString() + third.toString() + fourth.toString();
-    console.log("Massiv from sum all digest", temp)
-    return this.resultAr = temp.split('')
+    const temp = a + b + c + first.toString() + second.toString() + third.toString() + fourth.toString();
+    console.log('Massiv from sum all digest', temp)
+    return this.resultAr = temp.split('');
   }
 
   private found(arrStr: string[], number: string): string {
-    console.log("START")
+    console.log('START')
     let result: string[] = [];
     result = arrStr.filter(n => n == number)
-    return result.join("")
+    return result.join('');
   }
 
 }
