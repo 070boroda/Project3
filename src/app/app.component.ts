@@ -13,7 +13,8 @@ export class AppComponent implements OnInit{
   day: string = '';
   month: string = '';
   year: string = '';
-  oneNumber: any;
+  digestSoul: any;
+  oneNumber: number;
   secondNumber: number;
   thirdNumber: number;
   fourthNumber: number;
@@ -45,7 +46,8 @@ export class AppComponent implements OnInit{
     this.month = this.form.get('month').value;
     this.year = this.form.get('year').value;
 
-    this.oneNumber = this.digestPower(this.day, this.month, this.year);
+    this.digestSoul = this.digestPower(this.day, this.month, this.year);
+    this.oneNumber = this.sumBirthDayAndFirstDigest(this.day, this.month, this.year);
     this.secondNumber = this.secondDigest(this.day, this.month, this.year);
     this.thirdNumber = this.thirdDigest(this.day, this.month, this.year);
     this.fourthNumber = this.fourthDigest(this.day, this.month, this.year);
@@ -74,9 +76,6 @@ export class AppComponent implements OnInit{
   private digestPower(a: string, b: string, c: string): number {
     let sum = 0;
     sum = this.sumBirthDayAndFirstDigest(a, b, c)
-
-
-
     while (sum > 11) {
       console.log('Start do While');
       let arTemp: string [] = [];

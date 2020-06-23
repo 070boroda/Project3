@@ -47,31 +47,29 @@
   <div>
     <table class="table table-bordered">
       <thead>
-      <th>Число судьбы <strong>{{oneNumber}}</strong></th>
-      <th></th>
+      <th>Число судьбы <strong>{{digestSoul}}</strong></th>
+      <th>Доп Числа {{oneNumber}}.{{secondNumber}}.{{thirdNumber}}.{{fourthNumber}}</th>
       <th></th>
       <th>Темперамент: {{three.length + five.length + seven.length}}</th>
 
       </thead>
       <tbody>
       <tr>
-        <td><small>Характер</small>
-          <p>{{one}}</p>
-        </td>
-        <td>Здоровье{{four}}</td>
-        <td>Удача{{seven}}</td>
+        <td><small>Характер</small><p>{{one}}</p></td>
+        <td><small>Здоровье</small><p>{{four}}</p></td>
+        <td><small>Удача</small><p>{{seven}}</p></td>
         <th>Цель: {{one.length + four.length + seven.length }}</th>
       </tr>
       <tr>
-        <td>{{two}}</td>
-        <td>{{five}}</td>
-        <td>{{eight}}</td>
+        <td><small>Энергия</small><p>{{two}}</p></td>
+        <td><small>Логика</small><p>{{five}}</p></td>
+        <td><small>Долг</small><p>{{eight}}</p></td>
         <th>Семья: {{two.length + five.length + eight.length}}</th>
       </tr>
       <tr>
-        <td>{{three}}</td>
-        <td>{{six}}</td>
-        <td>{{nine}}</td>
+        <td><small>Интерес</small><p>{{three}}</p></td>
+        <td><small>Труд</small><p>{{six}}</p></td>
+        <td><small>Память</small><p>{{nine}}</p></td>
         <th>Привычки: {{three.length + six.length + nine.length}}</th>
       </tr>
       <tr>
@@ -82,6 +80,6 @@
       </tbody>
     </table>
   </div>
-  <p align="centre"><strong>{{one}}/{{two}}/{{three}}/{{four}}/{{five}}/{{six}}/{{seven}}/{{eight}}/{{nine}} ЧС {{oneNumber}}</strong></p>
+  <p align="centre"><strong>{{one}}/{{two}}/{{three}}/{{four}}/{{five}}/{{six}}/{{seven}}/{{eight}}/{{nine}} ЧС {{digestSoul}}</strong></p>
 </div>
 
