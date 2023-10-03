@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {MyValidators} from './my.validators';
 
 @Component({
@@ -28,15 +28,15 @@ export class AppComponent implements OnInit{
   seven: string = '';
   eight: string = '';
   nine: string = '';
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      day: new FormControl('', [Validators.required,
+    this.form = new UntypedFormGroup({
+      day: new UntypedFormControl('', [Validators.required,
         MyValidators.restrictDay, MyValidators.lessDay]),
-      month: new FormControl('',[Validators.required,
+      month: new UntypedFormControl('',[Validators.required,
       MyValidators.lessMonth]),
-      year: new FormControl('',[Validators.required,
+      year: new UntypedFormControl('',[Validators.required,
       Validators.minLength(4)])
     });
   }
