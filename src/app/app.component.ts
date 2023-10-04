@@ -77,10 +77,10 @@ export class AppComponent implements OnInit{
     let sum = 0;
     sum = this.sumBirthDayAndFirstDigest(a, b, c)
     while (sum > 11) {
-      console.log('Start do While');
+      // console.log('Start do While');
       let arTemp: string [] = [];
       arTemp = sum.toString().split('');
-      console.log('Массив из вайла ', arTemp);
+      // console.log('Массив из вайла ', arTemp);
       sum = 0;
       for (let i of arTemp) {
         sum += +i;
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit{
     for (let i of arTemp) {
       sum += +i;
     }
-    console.log('Сумма чисел рождения', sum);
+    // console.log('Сумма чисел рождения', sum);
     return sum;
   }
 
