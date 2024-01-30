@@ -368,6 +368,6 @@ improvedigital.com, 2273, RESELLER
 onetag.com, 7d9af0b85b5070e, RESELLER
 pubmatic.com, 162239, RESELLER, 5d62403b186f2ace
 empower.net, 63cb0332e4b01718f069d4cb, DIRECT
-google.com, pub-7983651257838282, RESELLER, f08c47fec0942fa0
+google.com,  pub-9309082672837567, RESELLER, f08c47fec0942fa0
 opera.com,pub9443931419968,DIRECT,55a0c5fd61378de3
 improvedigital.com, 2320, RESELLER
