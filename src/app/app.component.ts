@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+// @ts-ignore
 import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {MyValidators} from './my.validators';
 
@@ -9,6 +10,7 @@ import {MyValidators} from './my.validators';
 })
 
 export class AppComponent implements OnInit{
+
   title = 'NumerologY';
   day: string = '';
   month: string = '';
