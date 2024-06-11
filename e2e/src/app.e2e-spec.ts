@@ -1,4 +1,5 @@
 import { AppPage } from './app.po';
+// @ts-ignore
 import { browser, logging } from 'protractor';
 
 describe('workspace-project App', () => {
@@ -10,7 +11,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('numerologic app is running!');
+    expect(page.getTitleText()).toEqual('spiderman-numer app is running!');
   });
 
   afterEach(async () => {

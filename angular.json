@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "numerologic": {
+    "spiderman-numer": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/numerologic",
+            "outputPath": "dist/spiderman-numer",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -26,6 +26,9 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/assets",
+              "src/assets/resources/ins.png",
+              "src/assets/resources/spiderman.jpg",
               "src/manifest.webmanifest",
               "src/app-ads.txt",
               "src/ads.txt"
@@ -70,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "numerologic:build"
+            "browserTarget": "spiderman-numer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "numerologic:build:production"
+              "browserTarget": "spiderman-numer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "numerologic:build"
+            "browserTarget": "spiderman-numer:build"
           }
         },
         "test": {
@@ -120,11 +123,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "numerologic:serve"
+            "devServerTarget": "spiderman-numer:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "numerologic:serve:production"
+              "devServerTarget": "spiderman-numer:serve:production"
             }
           }
         }

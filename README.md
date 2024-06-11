@@ -26,10 +26,6 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-<!--  <div class="row-centered">-->
-<!--  <a href='https://play.google.com/store/apps/details?id=com.zelianko.numerologic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>-->
-<!--    <img width="240" height="92" alt='Доступно в Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/ru_badge_web_generic.png'/></a>-->
-<!--  </div>-->
 
 
 ## Deploy Firebase
@@ -38,4 +34,14 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ng build
 firebase deploy
+
+
+==================================================
+Новое приложение 
+1. на сайте https://console.firebase.google.com/u/0/project/spiderman-numer/overview?hl=ru
+2. создать новое приложение
+3. перейти в новый каталог 
+4. собрать ng build
+5. firebase init
+6. firebase deploy
 

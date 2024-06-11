@@ -3,3 +3,112 @@ body{
   background-size: 100%;
   color: #ffffff;
 }
+
+
+.text-al-center {
+  text-align: center;
+}
+
+.padding-10{
+  padding: 10px;
+}
+.length-input{
+  width: 200px;
+  margin-left:475px;
+  align-content: center;
+
+}
+small{
+  font-size: 10px;
+  color: blue;
+}
+
+.table{
+  width: 500px;
+  //  hight: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  text-decoration-color: #11118b;
+}
+
+.row-centered {
+  text-align:center;
+}
+
+TH {
+  width: 150px;
+  text-align: center; /* Выравнивание по левому краю */
+  background: rgba(139, 229, 201, 0.56); /* Цвет фона */
+  color: #11118b; /* Цвет текста */
+  font-size: 12px;
+}
+
+TD {
+  text-align: center; /* Выравнивание по центру */
+  color: #11118b;
+}
+
+span{
+  width: 70px;
+}
+input{
+  width: 65px;
+  &.ng-invalid.ng-touched{
+    border: 1px solid red;
+  }
+  &.ng-valid{
+    border: 1px solid green;
+  }
+}
+
+p {
+  text-align: center;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border: none;
+  color: darkblue;
+}
+
+//html,body{
+//  height: 100%;
+//}
+//.container{
+//  height: 100%;
+//  align-content: center;
+//}
+
+.image_outer_container{
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 50%;
+  position: relative;
+}
+
+.image_inner_container{
+  border-radius: 50%;
+  padding: 5px;
+  background: #833ab4;
+  background: -webkit-linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);
+  background: linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);
+}
+.image_inner_container img{
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+
+.image_outer_container .green_icon{
+  background-color: #4cd137;
+  position: absolute;
+  right: 30px;
+  bottom: 10px;
+  height: 30px;
+  width: 30px;
+  border:5px solid white;
+  border-radius: 50%;
+}
+
+
