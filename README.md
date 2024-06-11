@@ -42,6 +42,6 @@ firebase deploy
 2. создать новое приложение
 3. перейти в новый каталог 
 4. собрать ng build
-5. firebase init
+5. firebase init (путь указывается dist/{nameApp}, перезаписать индекс файл НЕТ), перед сборкой удалить dist, .firebaseerc firebase.json 
 6. firebase deploy
 
