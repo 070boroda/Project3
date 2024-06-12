@@ -13,7 +13,7 @@
 }
 small{
   font-size: 10px;
-  color: blue;
+  color: #000000;
 }
 
 .table{
@@ -35,10 +35,14 @@ TH {
   color: #11118b; /* Цвет текста */
   font-size: 12px;
 }
+.th-background-color-out{
+  background: #e7d7c8
+}
 
 TD {
   text-align: center; /* Выравнивание по центру */
   color: #11118b;
+  background: #f4f1f0
 }
 
 span{
@@ -61,15 +65,12 @@ input{
     display: block;
     margin: 0 auto;
     border: none;
-    color: darkblue;
+    color: #000000;
   }
 
-//html,body{
+//body{
 //  height: 100%;
-//}
-//.container{
-//  height: 100%;
-//  align-content: center;
+//  background: red !important;
 //}
 
 .image_outer_container{
@@ -102,5 +103,9 @@ input{
   width: 30px;
   border:5px solid white;
   border-radius: 50%;
+}
+
+.black-text-color {
+  color: #000000;
 }
 

@@ -11,7 +11,7 @@ import {MyValidators} from './my.validators';
 
 export class AppComponent implements OnInit{
 
-  title = 'NumerologY';
+  title = 'КАЛЬКУЛЯТОР РАСЧЕТА МАТРИЦЫ';
   day: string = '';
   month: string = '';
   year: string = '';

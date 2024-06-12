@@ -37,6 +37,14 @@ firebase deploy
 
 
 ==================================================
+Заменить аватарку
+заменить цвета в трех местах бэкгранду в style.css container-background-color
+в app.component.scss th-background-color-out и TD.
+
+Заменить ссылки на интсу и на телегу
+
+=================================================
+
 Новое приложение 
 1. на сайте https://console.firebase.google.com/u/0/project/spiderman-numer/overview?hl=ru
 2. создать новое приложение
