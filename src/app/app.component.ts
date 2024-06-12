@@ -122,11 +122,9 @@ export class AppComponent implements OnInit{
 
   private thirdDigest(a: string, b: string, c: string): number {
 
-    let arTemp: string[] = []
-    let result: number = 0
-
+    let arTemp: string[]
     arTemp = a.split('')
-    return result = this.sumBirthDayAndFirstDigest(a, b, c) - 2 * +arTemp[0]
+    return  Math.abs(this.sumBirthDayAndFirstDigest(a, b, c) - 2 * +arTemp[0])
   }
 
   private fourthDigest(a: string, b: string, c: string): number {
