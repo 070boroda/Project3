@@ -1,7 +1,7 @@
 <div class="container">
 
   <div class="divider py-3 "></div>
-  <h2 class="text-center"><p class="text-center">{{ title }}</p></h2>
+  <h2 class="text-center"><p class="text-center">Psychomatrix Calculator</p></h2>
   <div class="divider py-3 "></div>
 
 <!--  Первая строка аватарка и форма ввода даты-->
@@ -25,7 +25,7 @@
 <!--            Ссылка на инсту-->
             <div class = row>
             <img class="icon" src="./assets/resources/ins.png" alt="mts" height="32">
-            <a  href='https://www.instagram.com/ne_numerolog_toronto?igsh=MXFqbGNhaHUyaG0zZw%3D%3D&utm_source=qr'>Страница в Instagram</a>
+            <a  href='https://www.instagram.com/ne_numerolog_toronto?igsh=MXFqbGNhaHUyaG0zZw%3D%3D&utm_source=qr'>Instagram Page</a>
             </div>
         </div>
       </div>
@@ -40,7 +40,7 @@
 
         <div class="padding-10">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-day"><p>День</p></span>
+            <span class="input-group-text" id="inputGroup-day"><p>Day</p></span>
             <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
                    formControlName="day"
                    maxlength="2"
@@ -54,7 +54,7 @@
         </div>
         <div class="padding-10">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-month"><p>Месяц</p></span>
+            <span class="input-group-text" id="inputGroup-month"><p>Month</p></span>
             <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
                    formControlName="month" maxlength="2">
           </div>
@@ -66,7 +66,7 @@
 
         <div class="padding-10">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-year"><p>Год</p></span>
+            <span class="input-group-text" id="inputGroup-year"><p>Year</p></span>
             <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
                    formControlName="year" maxlength="4">
           </div>
@@ -76,7 +76,7 @@
           </div>
         </div>
         <div class="padding-10">
-          <button type="submit" class="btn btn-dark" [disabled]="form.invalid">Рассчитать</button>
+          <button type="submit" class="btn btn-dark" [disabled]="form.invalid">Calculate</button>
         </div>
       </form>
     </div>
@@ -89,43 +89,43 @@
     <div class="divider py-2 "></div>
     <table class="table table-bordered">
       <thead>
-      <th class="black-text-color th-background-color-out">Число судьбы <strong>{{ digestSoul }}</strong></th>
-      <th class="black-text-color th-background-color-out">Доп Числа {{ oneNumber }}.{{ secondNumber }}.{{ thirdNumber }}.{{ fourthNumber }}</th>
+      <th class="black-text-color th-background-color-out">Life Path Number <br><strong>{{ digestSoul }}</strong></th>
+      <th class="black-text-color th-background-color-out">Additional Numbers {{ oneNumber }}.{{ secondNumber }}.{{ thirdNumber }}.{{ fourthNumber }}</th>
       <th class="th-background-color-out"></th>
-      <th class="black-text-color th-background-color-out">Темперамент: {{ three.length + five.length + seven.length }}</th>
+      <th class="black-text-color th-background-color-out">Temperament: {{ three.length + five.length + seven.length }}</th>
 
       </thead>
       <tbody>
       <tr>
-        <td class="black-text-color"><small>Характер</small>
+        <td class="black-text-color"><small>Character</small>
           <p>{{ one }}</p></td>
-        <td class="black-text-color"><small>Здоровье</small>
+        <td class="black-text-color"><small>Health</small>
           <p>{{ four }}</p></td>
-        <td class="black-text-color"><small>Удача</small>
+        <td class="black-text-color"><small>Luck</small>
           <p>{{ seven }}</p></td>
-        <th class="black-text-color th-background-color-out">Цель: {{ one.length + four.length + seven.length }}</th>
+        <th class="black-text-color th-background-color-out">Goal: {{ one.length + four.length + seven.length }}</th>
       </tr>
       <tr>
-        <td ><small>Энергия</small>
+        <td ><small>Energy</small>
           <p>{{ two }}</p></td>
-        <td><small>Логика</small>
+        <td><small>Logic</small>
           <p>{{ five }}</p></td>
-        <td><small>Долг</small>
+        <td><small>Duty</small>
           <p>{{ eight }}</p></td>
-        <th class="black-text-color th-background-color-out">Семья: {{ two.length + five.length + eight.length }}</th>
+        <th class="black-text-color th-background-color-out">Family: {{ two.length + five.length + eight.length }}</th>
       </tr>
       <tr>
-        <td><small>Интерес</small>
+        <td><small>Interest</small>
           <p>{{ three }}</p></td>
-        <td><small>Труд</small>
+        <td><small>Labour</small>
           <p>{{ six }}</p></td>
-        <td><small>Память</small>
+        <td><small>Memory</small>
           <p>{{ nine }}</p></td>
-        <th class="black-text-color th-background-color-out">Привычки: {{ three.length + six.length + nine.length }}</th>
+        <th class="black-text-color th-background-color-out">Habits: {{ three.length + six.length + nine.length }}</th>
       </tr>
       <tr>
         <td></td>
-        <th class="black-text-color th-background-color-out">Быт: {{ four.length + five.length + six.length }}</th>
+        <th class="black-text-color th-background-color-out">Lifestyle: {{ four.length + five.length + six.length }}</th>
         <td></td>
         <td></td>
       </tr>
@@ -133,7 +133,7 @@
     </table>
   </div>
   <p align="centre"><strong>{{ one }}/{{ two }}/{{ three }}/{{ four }}/{{ five }}/{{ six }}/{{ seven }}/{{ eight }}
-    /{{ nine }} ЧС {{ digestSoul }} </strong></p>
+    /{{ nine }} LPN {{ digestSoul }} </strong></p>
   <div class="divider py-2 "></div>
 <!--  <h2><p align="centre"> Теперь вы можете скачать приложение для расчета в Google Play Market</p></h2>-->
 
