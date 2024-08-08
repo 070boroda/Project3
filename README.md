@@ -53,3 +53,4 @@ firebase deploy
 5. firebase init (путь указывается dist/{nameApp}, перезаписать индекс файл НЕТ), перед сборкой удалить dist, .firebaseerc firebase.json 
 6. firebase deploy
 
+oksana-neonumerolofarebase
