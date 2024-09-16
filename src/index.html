@@ -8,9 +8,36 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
+  <!-- Yandex Native Ads -->
+  <script>window.yaContextCb = window.yaContextCb || []</script>
+  <script src="https://yandex.ru/ads/system/context.js" async></script>
 </head>
 <body class="container-background-color">
   <app-root>
   </app-root>
+
+  <!-- Yandex.RTB R-A-3233177-4 -->
+  <script>
+    window.yaContextCb.push(() => {
+      Ya.Context.AdvManager.render({
+        "blockId": "R-A-3233177-4",
+        "type": "floorAd",
+        "platform": "desktop"
+      })
+    })
+  </script>
+
+  <!-- Yandex.RTB R-A-3233177-7 -->
+  <script>
+    window.yaContextCb.push(() => {
+      Ya.Context.AdvManager.render({
+        "blockId": "R-A-3233177-7",
+        "type": "floorAd",
+        "platform": "touch"
+      })
+    })
+  </script>
+
+
 </body>
 </html>
