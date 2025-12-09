@@ -4,9 +4,14 @@
   <meta charset="utf-8">
   <title>NumerologY - Квадрат Пифагора</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="Расчет психоматрицы по дате рождения. Квадрат Пифагора онлайн.">
   <meta name="keywords" content="нумерология, квадрат Пифагора, психоматрица, расчет судьбы">
+
+  <!-- Важные метатеги для мобильного ввода -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -29,11 +34,14 @@
       color: #e2e8f0;
       min-height: 100vh;
       overflow-x: hidden;
+      -webkit-text-size-adjust: 100%; /* Предотвращает изменение размера текста на iOS */
+      -ms-text-size-adjust: 100%;
     }
 
     /* Убираем стандартные отступы */
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: rgba(0,0,0,0); /* Убирает синее выделение при тапе на iOS */
     }
 
     /* Стили для приложения */
@@ -58,6 +66,30 @@
 
     ::-webkit-scrollbar-thumb:hover {
       background: #4f46e5;
+    }
+
+    /* Стили для улучшения ввода на мобильных */
+    input, button, select, textarea {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+
+    /* Предотвращаем выделение текста при долгом нажатии на мобильных */
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* Разрешаем выделение текста в полях ввода */
+    input, textarea {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
     }
   </style>
 
@@ -136,6 +168,32 @@
   if (metaThemeColor) {
     metaThemeColor.setAttribute('content', '#0f3460');
   }
+
+  // Функция для улучшения ввода на мобильных
+  function improveMobileInput() {
+    // Отключаем автозаполнение для полей даты
+    const inputs = document.querySelectorAll('input[type="text"]');
+    inputs.forEach(input => {
+      if (input.name.includes('day') || input.name.includes('month') || input.name.includes('year')) {
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('autocorrect', 'off');
+        input.setAttribute('autocapitalize', 'off');
+        input.setAttribute('spellcheck', 'false');
+      }
+    });
+
+    // Предотвращаем увеличение на фокусе в iOS
+    document.addEventListener('focusin', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+      }
+    });
+  }
+
+  // Запускаем при загрузке и когда DOM готов
+  document.addEventListener('DOMContentLoaded', improveMobileInput);
+  window.addEventListener('load', improveMobileInput);
 </script>
 </body>
 </html>
