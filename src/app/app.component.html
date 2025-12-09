@@ -1,233 +1,597 @@
 <div class="container">
   <h2 class="myclass">{{ title }}</h2>
 
-  <div class="row mt-5">
-    <div class="col-md-1"></div>
-    <div class="col-md-2 offset-1">
-      <div class="card input-card">
-        <div class="card-body">
-          <form [formGroup]="form" (ngSubmit)="addTask()">
-            <div align="center">
-              <div class="myclass2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroup-day">День</span>
-                  <input type="text" class="form-control"
-                         aria-label="small" aria-describedby="inputGroup-sizing-sm"
-                         formControlName="day"
-                         maxlength="2"
-                         size="10"
-                         placeholder="01">
+  <!-- Основные вкладки -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card main-tabs-card">
+        <div class="card-body p-0">
+          <ul class="nav nav-tabs main-tabs" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="calculator-tab" data-bs-toggle="tab"
+                      data-bs-target="#calculator" type="button" role="tab"
+                      aria-controls="calculator" aria-selected="true">
+                <i class="fas fa-calculator me-2"></i>Калькулятор
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="method-tab" data-bs-toggle="tab"
+                      data-bs-target="#method" type="button" role="tab"
+                      aria-controls="method" aria-selected="false">
+                <i class="fas fa-book me-2"></i>Описание метода
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="sectors-tab" data-bs-toggle="tab"
+                      data-bs-target="#sectors" type="button" role="tab"
+                      aria-controls="sectors" aria-selected="false">
+                <i class="fas fa-th-large me-2"></i>Секторы матрицы
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content p-3" id="mainTabsContent">
+
+            <!-- Вкладка 1: Калькулятор (текущая таблица расчета) -->
+            <div class="tab-pane fade show active" id="calculator" role="tabpanel"
+                 aria-labelledby="calculator-tab">
+              <div class="row mt-3">
+                <div class="col-md-1"></div>
+                <div class="col-md-2 offset-1">
+                  <div class="card input-card">
+                    <div class="card-body">
+                      <form [formGroup]="form" (ngSubmit)="addTask()">
+                        <div align="center">
+                          <div class="myclass2">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroup-day">День</span>
+                              <input type="text" class="form-control"
+                                     aria-label="small" aria-describedby="inputGroup-sizing-sm"
+                                     formControlName="day"
+                                     maxlength="2"
+                                     size="10"
+                                     placeholder="01">
+                            </div>
+                            <div class="validation-messages" *ngIf="form.get('day').invalid && form.get('day').touched">
+                              <small *ngIf="form.get('day').errors?.required">Поле не может быть пустым</small>
+                              <small *ngIf="form.get('day').errors?.restrictDay">Числа начинающиеся на нуль не допустимы</small>
+                              <small *ngIf="form.get('day').errors?.lessDay">В месеце не больше 31 дней</small>
+                            </div>
+                          </div>
+
+                          <div class="myclass2">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroup-month">Месяц</span>
+                              <input type="text" class="form-control"
+                                     aria-label="small" aria-describedby="inputGroup-sizing-sm"
+                                     formControlName="month"
+                                     maxlength="2"
+                                     placeholder="01">
+                            </div>
+                            <div class="validation-messages" *ngIf="form.get('month').invalid && form.get('month').touched">
+                              <small *ngIf="form.get('month').errors?.required">Поле не может быть пустым</small>
+                              <small *ngIf="form.get('month').errors?.lessMonth">В году 12 месяцев</small>
+                            </div>
+                          </div>
+
+                          <div class="myclass2">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroup-year">Год</span>
+                              <input type="text" class="form-control"
+                                     aria-label="small" aria-describedby="inputGroup-sizing-sm"
+                                     formControlName="year"
+                                     maxlength="4"
+                                     placeholder="1990">
+                            </div>
+                            <div class="validation-messages" *ngIf="form.get('year').invalid && form.get('year').touched">
+                              <small *ngIf="form.get('year').errors?.required">Поле не может быть пустым</small>
+                              <small *ngIf="form.get('year').errors?.minLength">Год должен быть записан в формате ГГГГ</small>
+                            </div>
+                          </div>
+
+                          <div class="myclass2">
+                            <button type="submit" class="btn btn-calculate" [disabled]="form.invalid">
+                              <i class="fas fa-play"></i> Пуск
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-                <div class="validation-messages" *ngIf="form.get('day').invalid && form.get('day').touched">
-                  <small *ngIf="form.get('day').errors?.required">Поле не может быть пустым</small>
-                  <small *ngIf="form.get('day').errors?.restrictDay">Числа начинающиеся на нуль не допустимы</small>
-                  <small *ngIf="form.get('day').errors?.lessDay">В месеце не больше 31 дней</small>
+
+                <div class="col-md-5">
+                  <div class="card results-card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-bordered matrix-table">
+                          <thead>
+                          <tr>
+                            <th class="equal-width">Число судьбы <strong>{{ digestSoul || '--' }}</strong></th>
+                            <th class="equal-width">Доп Числа <strong>{{ oneNumber || '-' }}.{{ secondNumber || '-' }}
+                              .{{ thirdNumber || '-' }}.{{ fourthNumber || '-' }}</strong>
+                            </th>
+                            <th class="equal-width"></th>
+
+                            <th class="equal-width" style="position: relative;">
+                              <div class="summary-cell">
+                                <div class="summary-label">Темперамент:</div>
+                                <div class="summary-value"><strong>{{ three.length + five.length + seven.length || '0' }}</strong></div>
+                              </div>
+                            </th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <!-- Первая строка -->
+                          <tr>
+                            <td class="equal-width">
+                              <div class="matrix-cell">
+                                <small>Характер</small>
+                                <p class="matrix-number">{{ one || '----' }}</p>
+                              </div>
+                            </td>
+                            <td class="equal-width">
+                              <div class="matrix-cell">
+                                <small>Здоровье</small>
+                                <p class="matrix-number">{{ four || '----' }}</p>
+                              </div>
+                            </td>
+                            <td class="equal-width">
+                              <div class="matrix-cell">
+                                <small>Удача</small>
+                                <p class="matrix-number">{{ seven || '----' }}</p>
+                              </div>
+                            </td>
+                            <!-- Ячейка Цель -->
+                            <td class="equal-width" style="position: relative;">
+                              <div class="summary-cell">
+                                <div class="summary-label">Цель:</div>
+                                <div class="summary-value">{{ one.length + four.length + seven.length || '0' }}</div>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <!-- Вторая строка -->
+                          <tr>
+                            <td class="equal-width">
+                              <div class="matrix-cell">
+                                <small>Энергия</small>
+                                <p class="matrix-number">{{ two || '----' }}</p>
+                              </div>
+                            </td>
+                            <td class="equal-width">
+                              <div class="matrix-cell">
+                                <small>Логика</small>
+                                <p class="matrix-number">{{ five || '----' }}</p>
+                              </div>
+                            </td>
+                            <td class="equal-width">
+                              <div class="matrix-cell">
+                                <small>Долг</small>
+                                <p class="matrix-number">{{ eight || '----' }}</p>
+                              </div>
+                            </td>
+                            <!-- Ячейка Семья -->
+                            <td class="equal-width" style="position: relative;">
+                              <div class="summary-cell">
+                                <div class="summary-label">Семья:</div>
+                                <div class="summary-value">{{ two.length + five.length + eight.length || '0' }}</div>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <!-- Третья строка -->
+                          <tr>
+                            <td class="equal-width">
+                              <div class="matrix-cell">
+                                <small>Интерес</small>
+                                <p class="matrix-number">{{ three || '----' }}</p>
+                              </div>
+                            </td>
+                            <td class="equal-width">
+                              <div class="matrix-cell">
+                                <small>Труд</small>
+                                <p class="matrix-number">{{ six || '----' }}</p>
+                              </div>
+                            </td>
+                            <td class="equal-width">
+                              <div class="matrix-cell">
+                                <small>Память</small>
+                                <p class="matrix-number">{{ nine || '----' }}</p>
+                              </div>
+                            </td>
+                            <!-- Ячейка Привычки -->
+                            <td class="equal-width" style="position: relative;">
+                              <div class="summary-cell">
+                                <div class="summary-label">Привычки:</div>
+                                <div class="summary-value">{{ three.length + six.length + nine.length || '0' }}</div>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <!-- Четвертая строка -->
+                          <tr>
+                            <td class="equal-width"></td>
+                            <!-- Ячейка Быт -->
+                            <td colspan="2" class="equal-width life-cell">
+                              <div class="life-content">
+                                <div class="life-label">Быт:</div>
+                                <div class="life-value">{{ four.length + five.length + six.length || '0' }}</div>
+                              </div>
+                            </td>
+                            <td class="equal-width"></td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Строка с последовательностью чисел -->
+                  <div class="card sequence-card mt-3" *ngIf="one">
+                    <div class="card-body text-center">
+                      <p class="sequence-text mb-0">
+                        <strong>
+                          {{ one || '----' }}/{{ two || '----' }}/{{ three || '----' }}/{{ four || '----' }}/{{ five || '----' }}
+                          /{{ six || '----' }}/{{ seven || '----' }}/{{ eight || '----' }}/{{ nine || '----' }}
+                          ЧС {{ digestSoul || '--' }}
+                        </strong>
+                      </p>
+                    </div>
+                  </div>
                 </div>
+
+                <div class="col-md-4"></div>
               </div>
 
-              <div class="myclass2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroup-month">Месяц</span>
-                  <input type="text" class="form-control"
-                         aria-label="small" aria-describedby="inputGroup-sizing-sm"
-                         formControlName="month"
-                         maxlength="2"
-                         placeholder="01">
+              <!-- Ссылки на приложения -->
+              <div class="row-centered mt-5">
+                <div class="download-section">
+                  <div class="download-buttons">
+                    <a href='https://play.google.com/store/apps/details?id=com.zelianko.numerologic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+                      <img width="240" height="100" alt='Доступно в Google Play'
+                           src='https://play.google.com/intl/en_us/badges/static/images/badges/ru_badge_web_generic.png'
+                           class="store-img"/>
+                    </a>
+                    <a href="https://apps.apple.com/ru/app/%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0-%D0%BA%D0%B2%D0%B0%D0%B4%D1%80%D0%B0%D1%82-%D0%BF%D0%B8%D1%84%D0%B0%D0%B3%D0%BE%D1%80%D0%B0/id6670796543?itscg=30200&itsct=apps_box_badge&mttnsubad=6670796543">
+                      <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1726185600"
+                           alt="Download on the App Store" width="240" height="100"
+                           class="store-img"/>
+                    </a>
+                  </div>
                 </div>
-                <div class="validation-messages" *ngIf="form.get('month').invalid && form.get('month').touched">
-                  <small *ngIf="form.get('month').errors?.required">Поле не может быть пустым</small>
-                  <small *ngIf="form.get('month').errors?.lessMonth">В году 12 месяцев</small>
-                </div>
-              </div>
-
-              <div class="myclass2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroup-year">Год</span>
-                  <input type="text" class="form-control"
-                         aria-label="small" aria-describedby="inputGroup-sizing-sm"
-                         formControlName="year"
-                         maxlength="4"
-                         placeholder="1990">
-                </div>
-                <div class="validation-messages" *ngIf="form.get('year').invalid && form.get('year').touched">
-                  <small *ngIf="form.get('year').errors?.required">Поле не может быть пустым</small>
-                  <small *ngIf="form.get('year').errors?.minLength">Год должен быть записан в формате ГГГГ</small>
-                </div>
-              </div>
-
-              <div class="myclass2">
-                <button type="submit" class="btn btn-calculate" [disabled]="form.invalid">
-                  <i class="fas fa-play"></i> Пуск
-                </button>
               </div>
             </div>
-          </form>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-md-5">
-      <div class="card results-card">
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered matrix-table">
-              <thead>
-              <tr>
-                <th class="equal-width">Число судьбы <strong>{{ digestSoul || '--' }}</strong></th>
-                <th class="equal-width">Доп Числа <strong>{{ oneNumber || '-' }}.{{ secondNumber || '-' }}
-                  .{{ thirdNumber || '-' }}.{{ fourthNumber || '-' }}</strong>
-                </th>
-                <th class="equal-width"></th>
+            <!-- Вкладка 2: Описание метода -->
+            <div class="tab-pane fade" id="method" role="tabpanel"
+                 aria-labelledby="method-tab">
+              <div class="method-content p-3">
+                <h4 class="text-primary mb-4">
+                  <strong>Статистический психоанализ личности</strong>
+                </h4>
 
-                <th class="equal-width" style="position: relative;">
-                  <div class="summary-cell">
-                    <div class="summary-label">Темперамент:</div>
-                    <div class="summary-value"><strong>{{ three.length + five.length + seven.length || '0' }}</strong></div>
-                  </div>
-                </th>
+                <div class="method-section mb-4">
+                  <p class="mb-3">
+                    <strong>Статистический психоанализ личности</strong> — это метод, который используется в данном приложении.
+                    Он совмещает в себе психологию, логотерапию, коучинг, поведенческие особенности человека и другие смежные науки.
+                  </p>
 
-              </tr>
-              </thead>
-              <tbody>
-              <!-- Первая строка -->
-              <tr>
-                <td class="equal-width">
-                  <div class="matrix-cell">
-                    <small>Характер</small>
-                    <p class="matrix-number">{{ one || '----' }}</p>
-                  </div>
-                </td>
-                <td class="equal-width">
-                  <div class="matrix-cell">
-                    <small>Здоровье</small>
-                    <p class="matrix-number">{{ four || '----' }}</p>
-                  </div>
-                </td>
-                <td class="equal-width">
-                  <div class="matrix-cell">
-                    <small>Удача</small>
-                    <p class="matrix-number">{{ seven || '----' }}</p>
-                  </div>
-                </td>
-                <!-- Ячейка Цель - ИСПРАВЛЕНО -->
-                <td class="equal-width" style="position: relative;">
-                  <div class="summary-cell">
-                    <div class="summary-label">Цель:</div>
-                    <div class="summary-value">{{ one.length + four.length + seven.length || '0' }}</div>
-                  </div>
-                </td>
-              </tr>
+                  <p class="mb-3">
+                    Статистический психоанализ дает точность диагностики человека 96-98% и построен исключительно на данных статистики.
+                    Без магии и эзотерики.
+                  </p>
+                </div>
 
-              <!-- Вторая строка -->
-              <tr>
-                <td class="equal-width">
-                  <div class="matrix-cell">
-                    <small>Энергия</small>
-                    <p class="matrix-number">{{ two || '----' }}</p>
-                  </div>
-                </td>
-                <td class="equal-width">
-                  <div class="matrix-cell">
-                    <small>Логика</small>
-                    <p class="matrix-number">{{ five || '----' }}</p>
-                  </div>
-                </td>
-                <td class="equal-width">
-                  <div class="matrix-cell">
-                    <small>Долг</small>
-                    <p class="matrix-number">{{ eight || '----' }}</p>
-                  </div>
-                </td>
-                <!-- Ячейка Семья - ИСПРАВЛЕНО -->
-                <td class="equal-width" style="position: relative;">
-                  <div class="summary-cell">
-                    <div class="summary-label">Семья:</div>
-                    <div class="summary-value">{{ two.length + five.length + eight.length || '0' }}</div>
-                  </div>
-                </td>
-              </tr>
+                <div class="method-section mb-4">
+                  <h5 class="text-primary mb-3">
+                    На какие вопросы отвечает Статистический психоанализ личности?
+                  </h5>
 
-              <!-- Третья строка -->
-              <tr>
-                <td class="equal-width">
-                  <div class="matrix-cell">
-                    <small>Интерес</small>
-                    <p class="matrix-number">{{ three || '----' }}</p>
+                  <div class="questions-list">
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Какие мои сильные и слабые стороны, как личности?</strong>
+                    </div>
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Что мешает мне развиваться, как профессионалу?</strong>
+                    </div>
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Как наладить «отношения» с деньгами?</strong>
+                    </div>
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Что делать с постоянной тревогой, из-за чего она возникает?</strong>
+                    </div>
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Как справиться с прокрастинацией?</strong>
+                    </div>
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Откуда во мне агрессия? Куда ее направить, чтобы не причинить вреда ни себе, ни окружающим?</strong>
+                    </div>
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Как найти подход к детям и на что обратить внимание при воспитании?</strong>
+                    </div>
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Как мне наладить отношения с мужем?</strong>
+                    </div>
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Как минимизировать конфликты в отношениях со начальником/соседями/свекровью/другими родственниками?</strong>
+                    </div>
+                    <div class="question-item mb-2">
+                      <i class="fas fa-question-circle text-primary me-2"></i>
+                      <strong>Какая профессия мне подойдет?</strong>
+                    </div>
                   </div>
-                </td>
-                <td class="equal-width">
-                  <div class="matrix-cell">
-                    <small>Труд</small>
-                    <p class="matrix-number">{{ six || '----' }}</p>
-                  </div>
-                </td>
-                <td class="equal-width">
-                  <div class="matrix-cell">
-                    <small>Память</small>
-                    <p class="matrix-number">{{ nine || '----' }}</p>
-                  </div>
-                </td>
-                <!-- Ячейка Привычки - ИСПРАВЛЕНО -->
-                <td class="equal-width" style="position: relative;">
-                  <div class="summary-cell">
-                    <div class="summary-label">Привычки:</div>
-                    <div class="summary-value">{{ three.length + six.length + nine.length || '0' }}</div>
-                  </div>
-                </td>
-              </tr>
+                </div>
 
-              <!-- Четвертая строка -->
-              <tr>
-                <td class="equal-width"></td>
-                <!-- Ячейка Быт - УЖЕ ПРАВИЛЬНО -->
-                <td colspan="2" class="equal-width life-cell">
-                  <div class="life-content">
-                    <div class="life-label">Быт:</div>
-                    <div class="life-value">{{ four.length + five.length + six.length || '0' }}</div>
+              </div>
+            </div>
+
+            <!-- Вкладка 3: Секторы матрицы -->
+            <div class="tab-pane fade" id="sectors" role="tabpanel"
+                 aria-labelledby="sectors-tab">
+              <div class="sectors-content p-3">
+                <!-- Введение -->
+                <div class="sector-intro mb-4 p-3 bg-white border rounded">
+                  <h5 class="text-primary mb-2">
+                    <i class="fas fa-info-circle me-2"></i>О психоматрице
+                  </h5>
+                  <p class="mb-2 text-dark">
+                    <strong class="text-dark">Психоматрица (он же Квадрат Пифагора)</strong> - самый известный в нумерологии
+                    персональный расчёт по дате рождения.
+                  </p>
+                  <p class="mb-0 text-dark">
+                    Используется для анализа, с целью выявить личностные качества и поведенческие особенности человека,
+                    данные ему при рождении. Для того, чтобы максимально раскрыть заложенный потенциал,
+                    при этом уменьшив или компенсировав воздействие слабых сторон человека.
+                  </p>
+                </div>
+
+                <!-- Основные секторы -->
+                <h5 class="text-primary mb-3">Основные секторы матрицы</h5>
+
+                <div class="row">
+                  <!-- Характер -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-primary text-white">
+                        <i class="fas fa-brain me-2"></i><strong>Характер</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Сила характера, амбициозность</strong></p>
+                        <p class="small mb-1">Волевые качества, стремление к достижению цели, способность отстоять свои взгляды.</p>
+                        <p class="small mb-1">Как человек принимает решения, готовность идти на компромисс.</p>
+                        <p class="small mb-0">Восприятие благодарности, отношение к себе и другим.</p>
+                      </div>
+                    </div>
                   </div>
-                </td>
-                <td class="equal-width"></td>
-              </tr>
-              </tbody>
-            </table>
+
+                  <!-- Энергия -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-secondary text-white">
+                        <i class="fas fa-bolt me-2"></i><strong>Энергия</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Умение распоряжаться временем</strong></p>
+                        <p class="small mb-1">Физическая энергия и биоэнергия, концентрация внимания, быстрота реакции.</p>
+                        <p class="small mb-1">Ресурс общения, способность делать что-то аккуратно, внутренняя системность.</p>
+                        <p class="small mb-0">Наличие упорства, сила для достижения успеха, донорство, лень.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Интерес -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-success text-white">
+                        <i class="fas fa-star me-2"></i><strong>Интерес</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Уверенность в своих силах, стабильность интереса</strong></p>
+                        <p class="small mb-1">Постоянство привычек, мнительность, склонность к фобиям, страхам.</p>
+                        <p class="small mb-1">Любовь к получению знаний, умение наслаждаться процессом обучения.</p>
+                        <p class="small mb-0">Отношение к авторитетам, жизнерадостность, склонность к перепадам настроения.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Здоровье -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-danger text-white">
+                        <i class="fas fa-heartbeat me-2"></i><strong>Здоровье</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Способность к восстановлению, физическая выносливость</strong></p>
+                        <p class="small mb-1">Внешние проявления привлекательности и телосложение.</p>
+                        <p class="small mb-1">Работа органов слуха и зрения, состояние зубов и кожи.</p>
+                        <p class="small mb-0">Показатель уровня агрессии человека.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Логика -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-info text-white">
+                        <i class="fas fa-brain me-2"></i><strong>Логика</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Сила интеллекта, аналитические способности</strong></p>
+                        <p class="small mb-1">Интуиция, перфекционизм, способность не допускать ошибки.</p>
+                        <p class="small mb-1">Развитое творческое начало или аналитические способности.</p>
+                        <p class="small mb-0">Доверчивость или хитрость, чувство юмора, склонность к анализу.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Труд -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-warning text-dark">
+                        <i class="fas fa-tools me-2"></i><strong>Труд</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Умение что-то делать руками, «ремесленные» таланты</strong></p>
+                        <p class="small mb-1">Возможность достичь популярности в профессиональной сфере.</p>
+                        <p class="small mb-1">Способность оказывать влияние на массы и на человека.</p>
+                        <p class="small mb-0">Склонность к мошенничеству, оккультизму или занятиям гипнозом.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Дополнительные секторы -->
+                <h5 class="text-primary mt-4 mb-3">Дополнительные секторы</h5>
+
+                <div class="row">
+                  <!-- Удача -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-purple text-white">
+                        <i class="fas fa-clover me-2"></i><strong>Удача</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Везение, неожиданные возможности</strong></p>
+                        <p class="small mb-1">Проницательность, способность понимать поведение людей.</p>
+                        <p class="small mb-1">Наличие интуиции, склонность к авантюризму.</p>
+                        <p class="small mb-0">Трактуется только в сочетаниях с другими секторами.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Долг -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-teal text-white">
+                        <i class="fas fa-handshake me-2"></i><strong>Долг</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Любовь к близким и себе, милосердие и терпение</strong></p>
+                        <p class="small mb-1">Умение прощать и выполнять просьбы, чувствовать дистанцию.</p>
+                        <p class="small mb-1">Способность лгать или говорить правду.</p>
+                        <p class="small mb-0">Отношение к здоровью, строгость, правильность и доброта.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Память -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-indigo text-white">
+                        <i class="fas fa-memory me-2"></i><strong>Память</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Словарный запас и развитие речи</strong></p>
+                        <p class="small mb-1">Возможность мгновенного использования архивов памяти.</p>
+                        <p class="small mb-1">Наличие чувства юмора, умение обращаться со сленгом.</p>
+                        <p class="small mb-0">Способность к быстрой адаптации, изучению иностранных языков.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Цель -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-orange text-white">
+                        <i class="fas fa-bullseye me-2"></i><strong>Цель</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Целеустремленность, способность добиваться результата</strong></p>
+                        <p class="small mb-1">Привычки выстраивать очередность действий на пути к цели.</p>
+                        <p class="small mb-1">Масштабность мечты, манера достижения желаемого.</p>
+                        <p class="small mb-0">Внешняя или внутренняя мотивация, правильная постановка задач.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Семья -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-pink text-white">
+                        <i class="fas fa-home me-2"></i><strong>Семья</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Отношение к семье, коллективу, друзьям</strong></p>
+                        <p class="small mb-1">Способность на самостоятельные действия без поддержки.</p>
+                        <p class="small mb-1">Желание создать пару, приоритетность семьи и традиций.</p>
+                        <p class="small mb-0">Высокая или низкая инициативность, требовательность к окружению.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Быт -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-cyan text-white">
+                        <i class="fas fa-money-bill-wave me-2"></i><strong>Быт</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Отношение к деньгам и возможностям</strong></p>
+                        <p class="small mb-1">Способность накапливать, экономить и инвестировать.</p>
+                        <p class="small mb-1">Важен для оценки удачливости и зависимостей.</p>
+                        <p class="small mb-0">Вероятность богатства, расточительность или жадность.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Привычки -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-brown text-white">
+                        <i class="fas fa-redo me-2"></i><strong>Привычки</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Стабильность, постоянство в поведении</strong></p>
+                        <p class="small mb-1">Отношение к привычкам, способность концентрироваться.</p>
+                        <p class="small mb-1">Умение распоряжаться энергией и временем.</p>
+                        <p class="small mb-0">Насколько человек постоянен в своих действиях.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Темперамент -->
+                  <div class="col-md-6 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-maroon text-white">
+                        <i class="fas fa-fire me-2"></i><strong>Темперамент</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Сексуальность, обаяние, способность к нежности</strong></p>
+                        <p class="small mb-1">Влечение, отношение к партнеру.</p>
+                        <p class="small mb-1">Высокие или слабые сексуальные вибрации.</p>
+                        <p class="small mb-0">Умение располагать к себе людей противоположного пола.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Число Судьбы -->
+                  <div class="col-md-12 mb-3">
+                    <div class="card sector-card h-100">
+                      <div class="card-header bg-gold text-dark">
+                        <i class="fas fa-star-and-crescent me-2"></i><strong>Число Судьбы</strong>
+                      </div>
+                      <div class="card-body">
+                        <p class="mb-2"><strong>Профессиональный вектор, уникальные особенности личности</strong></p>
+                        <p class="small mb-1">Основные способности для реализации в профессии.</p>
+                        <p class="small mb-0">Уникальные особенности личности для профессиональной реализации.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- Строка с последовательностью чисел -->
-      <div class="card sequence-card mt-3" *ngIf="one">
-        <div class="card-body text-center">
-          <p class="sequence-text mb-0">
-            <strong>
-              {{ one || '----' }}/{{ two || '----' }}/{{ three || '----' }}/{{ four || '----' }}/{{ five || '----' }}
-              /{{ six || '----' }}/{{ seven || '----' }}/{{ eight || '----' }}/{{ nine || '----' }}
-              ЧС {{ digestSoul || '--' }}
-            </strong>
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4"></div>
-  </div>
-
-  <!-- Ссылки на приложения -->
-  <div class="row-centered mt-5">
-    <div class="download-section">
-      <div class="download-buttons">
-        <a
-          href='https://play.google.com/store/apps/details?id=com.zelianko.numerologic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-          <img width="240" height="100" alt='Доступно в Google Play'
-               src='https://play.google.com/intl/en_us/badges/static/images/badges/ru_badge_web_generic.png'
-               class="store-img"/>
-        </a>
-        <a
-          href="https://apps.apple.com/ru/app/%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0-%D0%BA%D0%B2%D0%B0%D0%B4%D1%80%D0%B0%D1%82-%D0%BF%D0%B8%D1%84%D0%B0%D0%B3%D0%BE%D1%80%D0%B0/id6670796543?itscg=30200&itsct=apps_box_badge&mttnsubad=6670796543">
-          <img
-            src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1726185600"
-            alt="Download on the App Store" width="240" height="100"
-            class="store-img"/>
-        </a>
       </div>
     </div>
   </div>
