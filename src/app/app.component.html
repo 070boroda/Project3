@@ -1,125 +1,234 @@
 <div class="container">
   <h2 class="myclass">{{ title }}</h2>
 
-  <!--  <h2> <p align="centre"> Теперь вы можете скачать приложение для расчета в Google Play Market</p> </h2>-->
-
-
   <div class="row mt-5">
-    <div class="col-md-1 "></div>
+    <div class="col-md-1"></div>
     <div class="col-md-2 offset-1">
+      <div class="card input-card">
+        <div class="card-body">
+          <form [formGroup]="form" (ngSubmit)="addTask()">
+            <div align="center">
+              <div class="myclass2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-day">День</span>
+                  <input type="text" class="form-control"
+                         aria-label="small" aria-describedby="inputGroup-sizing-sm"
+                         formControlName="day"
+                         maxlength="2"
+                         size="10"
+                         placeholder="01">
+                </div>
+                <div class="validation-messages" *ngIf="form.get('day').invalid && form.get('day').touched">
+                  <small *ngIf="form.get('day').errors?.required">Поле не может быть пустым</small>
+                  <small *ngIf="form.get('day').errors?.restrictDay">Числа начинающиеся на нуль не допустимы</small>
+                  <small *ngIf="form.get('day').errors?.lessDay">В месеце не больше 31 дней</small>
+                </div>
+              </div>
 
-      <form [formGroup]="form" (ngSubmit)="addTask()">
-        <div align="centre">
-          <div class="myclass2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-day"> День</span>
-              <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
-                     formControlName="day"
-                     maxlength="2"
-                     size="10">
-            </div>
-            <div *ngIf="form.get('day').invalid && form.get('day').touched">
-              <small *ngIf="form.get('day').errors.required">Поле не может быть пустым </small>
-              <small *ngIf="form.get('day').errors.restrictDay">Числа начинающиеся на нуль не допустимы</small>
-              <small *ngIf="form.get('day').errors.lessDay">В месеце не больше 31 дней</small>
-            </div>
-          </div>
-          <div class="myclass2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-month">Месяц</span>
-              <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
-                     formControlName="month" maxlength="2">
-            </div>
-            <div *ngIf="form.get('month').invalid && form.get('month').touched">
-              <small *ngIf="form.get('month').errors.required">Поле не может быть пустым </small>
-              <small *ngIf="form.get('month').errors.lessMonth">В году 12 месяцев</small>
-            </div>
-          </div>
+              <div class="myclass2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-month">Месяц</span>
+                  <input type="text" class="form-control"
+                         aria-label="small" aria-describedby="inputGroup-sizing-sm"
+                         formControlName="month"
+                         maxlength="2"
+                         placeholder="01">
+                </div>
+                <div class="validation-messages" *ngIf="form.get('month').invalid && form.get('month').touched">
+                  <small *ngIf="form.get('month').errors?.required">Поле не может быть пустым</small>
+                  <small *ngIf="form.get('month').errors?.lessMonth">В году 12 месяцев</small>
+                </div>
+              </div>
 
-          <div class="myclass2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-year">  Год</span>
-              <input type="text" class="form-control" aria-label="small" aria-describedby="inputGroup-sizing-sm"
-                     formControlName="year" maxlength="4">
+              <div class="myclass2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-year">Год</span>
+                  <input type="text" class="form-control"
+                         aria-label="small" aria-describedby="inputGroup-sizing-sm"
+                         formControlName="year"
+                         maxlength="4"
+                         placeholder="1990">
+                </div>
+                <div class="validation-messages" *ngIf="form.get('year').invalid && form.get('year').touched">
+                  <small *ngIf="form.get('year').errors?.required">Поле не может быть пустым</small>
+                  <small *ngIf="form.get('year').errors?.minLength">Год должен быть записан в формате ГГГГ</small>
+                </div>
+              </div>
+
+              <div class="myclass2">
+                <button type="submit" class="btn btn-calculate" [disabled]="form.invalid">
+                  <i class="fas fa-play"></i> Пуск
+                </button>
+              </div>
             </div>
-            <div *ngIf="form.get('year').invalid && form.get('year').touched">
-              <small *ngIf="form.get('year').errors.required">Поле не может быть пустым </small>
-              <small *ngIf="form.get('year').errors.minLength">Год должен быть записан в формате ГГГГ</small>
-            </div>
-          </div>
-          <div class="myclass2">
-            <button type="submit" class="btn btn-dark" [disabled]="form.invalid">Пуск</button>
-          </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
-
 
     <div class="col-md-5">
-      <div>
-        <table class="table table-bordered">
-          <thead>
-          <th>Число судьбы <strong>{{ digestSoul }}</strong></th>
-          <th>Доп Числа {{ oneNumber }}.{{ secondNumber }}.{{ thirdNumber }}.{{ fourthNumber }}</th>
-          <th></th>
-          <th>Темперамент: {{ three.length + five.length + seven.length }}</th>
+      <div class="card results-card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered matrix-table">
+              <thead>
+              <tr>
+                <th class="equal-width">Число судьбы <strong>{{ digestSoul || '--' }}</strong></th>
+                <th class="equal-width">Доп Числа {{ oneNumber || '-' }}.{{ secondNumber || '-' }}
+                  .{{ thirdNumber || '-' }}.{{ fourthNumber || '-' }}
+                </th>
+                <th class="equal-width"></th>
 
-          </thead>
-          <tbody>
-          <tr>
-            <td><small>Характер</small>
-              <p>{{ one }}</p></td>
-            <td><small>Здоровье</small>
-              <p>{{ four }}</p></td>
-            <td><small>Удача</small>
-              <p>{{ seven }}</p></td>
-            <th>Цель: {{ one.length + four.length + seven.length }}</th>
-          </tr>
-          <tr>
-            <td><small>Энергия</small>
-              <p>{{ two }}</p></td>
-            <td><small>Логика</small>
-              <p>{{ five }}</p></td>
-            <td><small>Долг</small>
-              <p>{{ eight }}</p></td>
-            <th>Семья: {{ two.length + five.length + eight.length }}</th>
-          </tr>
-          <tr>
-            <td><small>Интерес</small>
-              <p>{{ three }}</p></td>
-            <td><small>Труд</small>
-              <p>{{ six }}</p></td>
-            <td><small>Память</small>
-              <p>{{ nine }}</p></td>
-            <th>Привычки: {{ three.length + six.length + nine.length }}</th>
-          </tr>
-          <tr>
-            <td></td>
-            <th>Быт: {{ four.length + five.length + six.length }}</th>
-            <td></td>
-          </tr>
-          </tbody>
-        </table>
+                <th class="equal-width" style="position: relative;">
+                  <div class="summary-cell">
+                    <div class="summary-label">Темперамент:</div>
+                    <div class="summary-value">{{ three.length + five.length + seven.length || '0' }}</div>
+                  </div>
+                </th>
+
+              </tr>
+              </thead>
+              <tbody>
+              <!-- Первая строка -->
+              <tr>
+                <td class="equal-width">
+                  <div class="matrix-cell">
+                    <small>Характер</small>
+                    <p class="matrix-number">{{ one || '----' }}</p>
+                  </div>
+                </td>
+                <td class="equal-width">
+                  <div class="matrix-cell">
+                    <small>Здоровье</small>
+                    <p class="matrix-number">{{ four || '----' }}</p>
+                  </div>
+                </td>
+                <td class="equal-width">
+                  <div class="matrix-cell">
+                    <small>Удача</small>
+                    <p class="matrix-number">{{ seven || '----' }}</p>
+                  </div>
+                </td>
+                <!-- Ячейка Цель - ИСПРАВЛЕНО -->
+                <td class="equal-width" style="position: relative;">
+                  <div class="summary-cell">
+                    <div class="summary-label">Цель:</div>
+                    <div class="summary-value">{{ one.length + four.length + seven.length || '0' }}</div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Вторая строка -->
+              <tr>
+                <td class="equal-width">
+                  <div class="matrix-cell">
+                    <small>Энергия</small>
+                    <p class="matrix-number">{{ two || '----' }}</p>
+                  </div>
+                </td>
+                <td class="equal-width">
+                  <div class="matrix-cell">
+                    <small>Логика</small>
+                    <p class="matrix-number">{{ five || '----' }}</p>
+                  </div>
+                </td>
+                <td class="equal-width">
+                  <div class="matrix-cell">
+                    <small>Долг</small>
+                    <p class="matrix-number">{{ eight || '----' }}</p>
+                  </div>
+                </td>
+                <!-- Ячейка Семья - ИСПРАВЛЕНО -->
+                <td class="equal-width" style="position: relative;">
+                  <div class="summary-cell">
+                    <div class="summary-label">Семья:</div>
+                    <div class="summary-value">{{ two.length + five.length + eight.length || '0' }}</div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Третья строка -->
+              <tr>
+                <td class="equal-width">
+                  <div class="matrix-cell">
+                    <small>Интерес</small>
+                    <p class="matrix-number">{{ three || '----' }}</p>
+                  </div>
+                </td>
+                <td class="equal-width">
+                  <div class="matrix-cell">
+                    <small>Труд</small>
+                    <p class="matrix-number">{{ six || '----' }}</p>
+                  </div>
+                </td>
+                <td class="equal-width">
+                  <div class="matrix-cell">
+                    <small>Память</small>
+                    <p class="matrix-number">{{ nine || '----' }}</p>
+                  </div>
+                </td>
+                <!-- Ячейка Привычки - ИСПРАВЛЕНО -->
+                <td class="equal-width" style="position: relative;">
+                  <div class="summary-cell">
+                    <div class="summary-label">Привычки:</div>
+                    <div class="summary-value">{{ three.length + six.length + nine.length || '0' }}</div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Четвертая строка -->
+              <tr>
+                <td class="equal-width"></td>
+                <!-- Ячейка Быт - УЖЕ ПРАВИЛЬНО -->
+                <td colspan="2" class="equal-width life-cell">
+                  <div class="life-content">
+                    <div class="life-label">Быт:</div>
+                    <div class="life-value">{{ four.length + five.length + six.length || '0' }}</div>
+                  </div>
+                </td>
+                <td class="equal-width"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
+      <!-- Строка с последовательностью чисел -->
+      <div class="card sequence-card mt-3" *ngIf="one">
+        <div class="card-body text-center">
+          <p class="sequence-text mb-0">
+            <strong>
+              {{ one || '----' }}/{{ two || '----' }}/{{ three || '----' }}/{{ four || '----' }}/{{ five || '----' }}
+              /{{ six || '----' }}/{{ seven || '----' }}/{{ eight || '----' }}/{{ nine || '----' }}
+              ЧС {{ digestSoul || '--' }}
+            </strong>
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="col-md-4 ">
-    </div>
-    <p align="centre"><strong>{{ one }}/{{ two }}/{{ three }}/{{ four }}/{{ five }}/{{ six }}/{{ seven }}/{{ eight }}
-      /{{ nine }} ЧС {{ digestSoul }} </strong></p>
+
+    <div class="col-md-4"></div>
   </div>
 
+  <!-- Ссылки на приложения -->
   <div class="row-centered mt-5">
-    <a
-      href='https://play.google.com/store/apps/details?id=com.zelianko.numerologic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-      <img width="240" height="100" alt='Доступно в Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/ru_badge_web_generic.png'/></a>
-    <a href="https://apps.apple.com/ru/app/%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0-%D0%BA%D0%B2%D0%B0%D0%B4%D1%80%D0%B0%D1%82-%D0%BF%D0%B8%D1%84%D0%B0%D0%B3%D0%BE%D1%80%D0%B0/id6670796543?itscg=30200&itsct=apps_box_badge&mttnsubad=6670796543" style="display: inline-block;">
-      <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1726185600" alt="Download on the App Store" width="240" height="100" />
-    </a>
+    <div class="download-section">
+      <div class="download-buttons">
+        <a
+          href='https://play.google.com/store/apps/details?id=com.zelianko.numerologic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+          <img width="240" height="100" alt='Доступно в Google Play'
+               src='https://play.google.com/intl/en_us/badges/static/images/badges/ru_badge_web_generic.png'
+               class="store-img"/>
+        </a>
+        <a
+          href="https://apps.apple.com/ru/app/%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0-%D0%BA%D0%B2%D0%B0%D0%B4%D1%80%D0%B0%D1%82-%D0%BF%D0%B8%D1%84%D0%B0%D0%B3%D0%BE%D1%80%D0%B0/id6670796543?itscg=30200&itsct=apps_box_badge&mttnsubad=6670796543">
+          <img
+            src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1726185600"
+            alt="Download on the App Store" width="240" height="100"
+            class="store-img"/>
+        </a>
+      </div>
+    </div>
   </div>
-
-
-
-
-
 </div>

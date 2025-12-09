@@ -1,67 +1,561 @@
+/* Основные переменные */
+:root {
+  --primary-color: #11118b;
+  --secondary-color: #667eea;
+  --accent-color: #8be5c9;
+  --text-color: #333;
+  --light-bg: rgba(139, 229, 201, 0.56);
+}
+
+/* Общие стили */
+.container {
+  max-width: 1200px;
+}
+
 .myclass {
+  text-align: center;
+  color: var(--primary-color);
+  margin: 2rem 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.myclass2 {
+  padding: 10px 0;
+
+  &:last-child {
+    padding-top: 20px;
+  }
+}
+
+/* Карточки */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+}
+
+.input-card {
+  .card-body {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #0cdc97 0%, #4388de 100%);
+  }
+}
+
+/* Поля ввода */
+.input-group-prepend {
+  display: flex;
+  align-items: center;
+
+  .input-group-text {
+    width: 80px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: 2px solid #8b5cf6;
+    border-right: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.75rem;
+    border-radius: 10px 0 0 10px;
+
+    i {
+      margin-right: 5px;
+      font-size: 0.9rem;
+    }
+  }
+
+  .form-control {
+    height: 48px;
+    background: rgba(30, 41, 59, 0.9);
+    border: 2px solid #475569;
+    border-left: none;
+    color: #ffffff !important;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0 10px 10px 0;
+    transition: all 0.3s ease;
+
+    &:focus {
+      background: rgba(30, 41, 59, 1);
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+      color: #ffffff !important;
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #94a3b8 !important;
+      opacity: 0.7;
+    }
+
+    &, &:focus, &:active, &:hover {
+      color: #ffffff !important;
+    }
+
+    &.ng-invalid.ng-touched {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.2);
+      color: #ffffff !important;
+    }
+
+    &.ng-valid.ng-touched {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.2);
+      color: #ffffff !important;
+    }
+  }
+}
+
+/* Кнопка */
+.btn-calculate {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(17, 17, 139, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  i {
+    margin-right: 8px;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  &:hover:not(:disabled)::after {
+    left: 100%;
+  }
+}
+
+/* Таблица матрицы */
+.matrix-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto;
+
+  /* Все столбцы одинаковой ширины */
+  .equal-width {
+    width: 25% !important;
+    min-width: 25% !important;
+    max-width: 25% !important;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 !important; /* УБРАЛИ ОТСТУПЫ */
+    position: relative;
+  }
+
+  thead {
+    .equal-width {
+      background: var(--light-bg);
+      color: var(--primary-color);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 15px 5px !important;
+      word-wrap: break-word;
+
+      &:first-child {
+        border-top-left-radius: 8px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 8px;
+      }
+
+      strong {
+        font-size: 1.1rem;
+        color: #111;
+        display: block;
+        margin-top: 5px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      height: 100px; /* ФИКСИРОВАННАЯ ВЫСОТА СТРОК */
+
+      &:hover {
+        background-color: rgba(139, 229, 201, 0.1);
+      }
+
+      &:nth-child(odd) {
+        background-color: rgba(139, 229, 201, 0.05);
+      }
+
+      &:nth-child(odd):hover {
+        background-color: rgba(139, 229, 201, 0.15);
+      }
+
+      &:last-child {
+        .equal-width:first-child {
+          border-bottom-left-radius: 8px;
+        }
+
+        .equal-width:last-child {
+          border-bottom-right-radius: 8px;
+        }
+      }
+    }
+
+    .equal-width {
+      border: 1px solid #ddd;
+      height: 100px; /* ФИКСИРОВАННАЯ ВЫСОТА ЯЧЕЕК */
+
+      /* Ячейки матрицы (Характер, Энергия и т.д.) */
+      .matrix-cell {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 5px;
+
+        small {
+          font-size: 10px;
+          color: var(--primary-color);
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          text-align: center;
+          line-height: 1.2;
+        }
+
+        .matrix-number {
+          font-size: 1.6rem;
+          font-weight: 700;
+          color: #111;
+          margin: 5px 0;
+          min-height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Courier New', monospace;
+          letter-spacing: 2px;
+          width: 100%;
+
+          &:empty::before {
+            content: '----';
+            color: #999;
+            font-weight: normal;
+          }
+        }
+      }
+
+      /* Ячейки с итогами (Цель, Семья, Привычки) - ИСПРАВЛЕНО */
+      .summary-cell {
+        width: 100% !important;
+        height: 100% !important;
+        background: linear-gradient(135deg, #0cdc97 0%, #4388de 100%) !important;
+        border: 1px solid #0cdc97 !important;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important;
+        margin: 0 !important;
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+        z-index: 2;
+
+        .summary-label {
+          font-size: 0.9rem;
+          color: white;
+          margin-bottom: 8px;
+          font-weight: 600;
+          text-align: center;
+          text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .summary-value {
+          font-size: 1.6rem;
+          font-weight: 700;
+          color: white;
+          text-align: center;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      /* Ячейка "Быт" (занимает 2 столбца) */
+      &.life-cell {
+        width: 50% !important; /* Занимает 2 столбца */
+        background: linear-gradient(135deg, #0cdc97 0%, #4388de 100%);
+        padding: 0 !important;
+
+        .life-content {
+          width: 100% !important;
+          height: 100% !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 15px;
+          padding: 15px;
+          box-sizing: border-box;
+
+          .life-label {
+            font-size: 1rem;
+            color: white;
+            font-weight: 600;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+          }
+
+          .life-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Карточка с последовательностью */
+.sequence-card {
+  background: linear-gradient(135deg, #0cdc97 0%, #4388de 100%);
+  border: none;
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .sequence-text {
+    color: white;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    word-break: break-word;
+
+    strong {
+      font-weight: 600;
+    }
+  }
+}
+
+/* Ссылки на приложения */
+.row-centered {
   text-align: center;
 }
 
-.myclass2{
-  padding: 10px;
-}
-.lenghtinput{
-  width: 200px;
-  margin-left:475px;
-  align-content: center;
-
-}
-small{
-  font-size: 10px;
-  color: blue;
-}
-
-.table{
-  width: 500px;
-//  hight: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  text-decoration-color: #11118b;
-}
-
-.row-centered {
-  text-align:center;
-}
-
-TH {
-  width: 150px;
-  text-align: center; /* Выравнивание по левому краю */
-  background: rgba(139, 229, 201, 0.56); /* Цвет фона */
-  color: #11118b; /* Цвет текста */
-  font-size: 12px;
-}
-
-TD {
-  text-align: center; /* Выравнивание по центру */
-  color: #11118b;
-}
-
-span{
-  width: 70px;
-}
-input{
-  width: 65px;
-  &.ng-invalid.ng-touched{
-    border: 1px solid red;
-  }
-  &.ng-valid{
-    border: 1px solid green;
+.download-section {
+  .download-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
   }
 }
 
-  p {
-    text-align: center;
-    max-width: 100%;
-    height: auto;
+.store-img {
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Сообщения валидации */
+.validation-messages {
+  margin-top: 5px;
+  min-height: 40px;
+
+  small {
+    font-size: 10px;
+    color: #dc3545;
     display: block;
-    margin: 0 auto;
-    border: none;
-    color: darkblue;
+    margin: 2px 0;
+    padding: 3px 5px;
+    background: rgba(220, 53, 69, 0.05);
+    border-radius: 3px;
+    border-left: 2px solid #dc3545;
+  }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes numberAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Анимационные классы */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-number {
+  animation: numberAppear 0.3s ease-out;
+}
+
+/* Применяем анимацию к числам */
+.matrix-number:not(:empty) {
+  animation: numberAppear 0.3s ease-out;
+}
+
+/* Улучшение для пустых состояний */
+.matrix-number:empty::before {
+  content: '----';
+  color: #999;
+  font-weight: normal;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+  .col-md-1, .col-md-2.offset-1, .col-md-4 {
+    display: none;
   }
 
+  .col-md-2.offset-1, .col-md-5 {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 
+  .matrix-table {
+    .equal-width {
+      .matrix-cell {
+        min-height: 80px;
+
+        small {
+          font-size: 9px;
+        }
+
+        .matrix-number {
+          font-size: 1.4rem;
+          min-height: 35px;
+        }
+      }
+
+      .summary-cell {
+        .summary-value {
+          font-size: 1.4rem;
+        }
+      }
+
+      &.life-cell .life-content {
+        .life-label {
+          font-size: 0.9rem;
+        }
+
+        .life-value {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .matrix-table {
+    display: block;
+    overflow-x: auto;
+
+    .equal-width {
+      width: 120px !important;
+      min-width: 120px !important;
+      max-width: 120px !important;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .myclass {
+    font-size: 1.8rem;
+  }
+
+  .matrix-table {
+    display: block;
+    overflow-x: auto;
+
+    .matrix-number {
+      font-size: 1rem;
+      min-height: 30px;
+    }
+  }
+
+  .sequence-text {
+    font-size: 0.9rem;
+    word-break: break-all;
+  }
+}
