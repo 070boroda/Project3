@@ -2,9 +2,9 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>NumerologY - Квадрат Пифагора</title>
+  <title>NumerologY — Квадрат Пифагора</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Расчет психоматрицы по дате рождения. Квадрат Пифагора онлайн.">
   <meta name="keywords" content="нумерология, квадрат Пифагора, психоматрица, расчет судьбы">
 
@@ -12,6 +12,7 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0b1020">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -20,80 +21,69 @@
   <!-- Font Awesome для иконок -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Bootstrap для сетки -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Темная тема по умолчанию -->
+  <!-- Базовая тема: задаётся здесь, чтобы фон не мигал до загрузки Angular -->
   <style>
-    /* Темная тема для всего документа */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      color: #e2e8f0;
-      min-height: 100vh;
-      overflow-x: hidden;
-      -webkit-text-size-adjust: 100%; /* Предотвращает изменение размера текста на iOS */
+    html {
+      -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
     }
 
-    /* Убираем стандартные отступы */
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: rgba(0,0,0,0); /* Убирает синее выделение при тапе на iOS */
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: #e9eefb;
+      background-color: #0b1020;
+      background-image:
+        radial-gradient(900px 600px at 12% -10%, rgba(34, 211, 166, .16), transparent 60%),
+        radial-gradient(800px 620px at 92% 8%, rgba(79, 141, 247, .18), transparent 62%),
+        radial-gradient(900px 700px at 50% 110%, rgba(139, 92, 246, .14), transparent 60%);
+      background-attachment: fixed;
+      overflow-x: hidden;
     }
 
-    /* Стили для приложения */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     app-root {
       display: block;
       min-height: 100vh;
     }
 
-    /* Кастомный скроллбар для темной темы */
+    ::selection {
+      background: rgba(79, 141, 247, .35);
+      color: #fff;
+    }
+
     ::-webkit-scrollbar {
       width: 10px;
+      height: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: #1a1a2e;
+      background: #0b1020;
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #6366f1;
-      border-radius: 5px;
+      background: rgba(255, 255, 255, .16);
+      border-radius: 999px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #4f46e5;
+      background: rgba(255, 255, 255, .28);
     }
 
-    /* Стили для улучшения ввода на мобильных */
-    input, button, select, textarea {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      border-radius: 0;
-    }
-
-    /* Предотвращаем выделение текста при долгом нажатии на мобильных */
-    * {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    /* Разрешаем выделение текста в полях ввода */
-    input, textarea {
-      -webkit-user-select: text;
-      -moz-user-select: text;
-      -ms-user-select: text;
-      user-select: text;
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
     }
   </style>
-
-  <meta name="theme-color" content="#0f3460">
 
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
@@ -115,9 +105,7 @@
 </head>
 <body>
 <!-- Основное приложение Angular -->
-<div class="mt-5">
-  <app-root></app-root>
-</div>
+<app-root></app-root>
 
 <!-- Yandex.RTB R-A-17959939-1 -->
 <script>
@@ -128,50 +116,6 @@
       "platform": "touch"
     })
   })
-</script>
-
-<!-- Bootstrap JS (опционально, для некоторых компонентов) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Глобальные стили для темной темы -->
-<script>
-  // Применяем темную тему ко всему документу
-  document.documentElement.setAttribute('data-theme', 'dark');
-
-  // Добавляем класс dark-theme к body для ваших стилей
-  document.body.classList.add('dark-theme');
-
-  // Настройка цветовой схемы
-  const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-  if (metaThemeColor) {
-    metaThemeColor.setAttribute('content', '#0f3460');
-  }
-
-  // Функция для улучшения ввода на мобильных
-  function improveMobileInput() {
-    // Отключаем автозаполнение для полей даты
-    const inputs = document.querySelectorAll('input[type="text"]');
-    inputs.forEach(input => {
-      if (input.name.includes('day') || input.name.includes('month') || input.name.includes('year')) {
-        input.setAttribute('autocomplete', 'off');
-        input.setAttribute('autocorrect', 'off');
-        input.setAttribute('autocapitalize', 'off');
-        input.setAttribute('spellcheck', 'false');
-      }
-    });
-
-    // Предотвращаем увеличение на фокусе в iOS
-    document.addEventListener('focusin', function(e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
-      }
-    });
-  }
-
-  // Запускаем при загрузке и когда DOM готов
-  document.addEventListener('DOMContentLoaded', improveMobileInput);
-  window.addEventListener('load', improveMobileInput);
 </script>
 </body>
 </html>

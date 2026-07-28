@@ -50,6 +50,9 @@ export class AppComponent implements OnInit {
   title = 'NumerologY';
   form: FormGroup;
 
+  // Активная вкладка (раньше переключалась через Bootstrap JS)
+  activeTab: 'calculator' | 'method' | 'sectors' = 'calculator';
+
   // Ваши оригинальные переменные
   day: string = '';
   month: string = '';
@@ -127,6 +130,43 @@ export class AppComponent implements OnInit {
         Validators.maxLength(4)
       ])
     });
+  }
+
+  // ---- Методы представления (на расчет не влияют) ----
+
+  setTab(tab: 'calculator' | 'method' | 'sectors'): void {
+    this.activeTab = tab;
+  }
+
+  // Есть ли посчитанный результат
+  get hasResult(): boolean {
+    return !!this.digestSoul;
+  }
+
+  // Показывать ли ошибку поля
+  isInvalid(controlName: string): boolean {
+    const control = this.form.get(controlName);
+    return control.invalid && (control.touched || control.dirty);
+  }
+
+  // Оставляем в поле только цифры и переводим фокус на следующее поле
+  onDigitInput(event: Event, controlName: string, next?: HTMLInputElement): void {
+    const input = event.target as HTMLInputElement;
+    const digits = input.value.replace(/\D/g, '');
+
+    if (digits !== input.value) {
+      this.form.get(controlName).setValue(digits);
+    }
+
+    if (next && digits.length >= input.maxLength) {
+      next.focus();
+    }
+  }
+
+  // Насыщенность ячейки матрицы — по количеству цифр в секторе
+  cellLevel(value: string): string {
+    const count = value ? value.length : 0;
+    return 'lvl-' + (count > 3 ? 3 : count);
   }
 
   // Методы для анимаций

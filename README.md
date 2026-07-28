@@ -44,3 +44,6 @@ firebase deploy
 4. собрать ng build
 5. firebase init (путь указывается dist/{nameApp}, перезаписать индекс файл НЕТ), перед сборкой удалить dist, .firebaseerc firebase.json
 6. firebase deploy
+
+
+$env:Path = "$env:APPDATA\JetBrains\IntelliJIdea2024.3\node\versions\24.11.1;" + $env:Path; firebase login --reauth
